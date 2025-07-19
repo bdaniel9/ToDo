@@ -17,7 +17,7 @@ public class Main {
 
         switch (option) {
             case 1:
-                System.out.println("Add a ToDo to your list.");
+                System.out.println("Add a ToDo to your list. ");
                 break;
             case 2:
                 System.out.println("View ToDo list.");
