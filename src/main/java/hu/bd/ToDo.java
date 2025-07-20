@@ -17,15 +17,13 @@ public class ToDo {
         return description;
     }
 
-    //Format line
     @Override
     public String toString() {
-        return title +";"+description;
+        return title + ";" + description;
     }
 
-    //Creates a new Todo from a file line
-    public static ToDo fromString(String line){
-        String[] parts = line.split(";",2);
-        return new ToDo(parts[0],parts[1]);
+    public static ToDo fromString(String line) {
+        String[] parts = line.split(";", 2);
+        return new ToDo(parts[0], parts[1]);
     }
 }

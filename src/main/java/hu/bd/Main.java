@@ -6,38 +6,33 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-        private final List<ToDo> toDoList = new ArrayList<>();
-        private final ViewToDo viewToDo = new ViewToDo();
+    private final List<ToDo> toDoList = new ArrayList<>();
+    private final ViewToDo viewToDo = new ViewToDo();
 
-        public void menu() throws IOException {
-            Scanner scanner = new Scanner(System.in);
-            int option;
+    public void menu() {
+        Scanner scanner = new Scanner(System.in);
+        int option;
 
-            do{
-
-            System.out.println("Choose an option:");
+        do {
+            System.out.println("\nChoose an option:");
             System.out.println("1. Add ToDo");
             System.out.println("2. ToDo list");
+            System.out.println("3. Save ToDos to file");
+            System.out.println("4. Load ToDos from file");
             System.out.println("0. Exit");
-
             System.out.print("Option: ");
+
             option = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine(); // buffer törlés
 
             switch (option) {
                 case 0:
                     System.out.println("Goodbye.");
                     break;
                 case 1:
-                    System.out.println("Enter title: ");
-                    String title = scanner.nextLine();
-                    System.out.println("Enter description: ");
-                    String description = scanner.nextLine();
-                    toDoList.add(new ToDo(title,description));
-                    System.out.println("Todo added!");
+                    AddToDo.addToDo(toDoList);
                     break;
                 case 2:
-                    System.out.println("Show ToDo list.");
                     viewToDo.display(toDoList);
                     break;
                 case 3:
@@ -50,15 +45,17 @@ public class Main {
                     System.out.println("Invalid option!");
                     break;
             }
-            }while (option!=0);
-            scanner.close();
-        }
+        } while (option != 0);
+
+        scanner.close();
+    }
 
     public void saveToFile() {
         try {
             File dir = new File("data");
             if (!dir.exists()) {
                 dir.mkdirs();
+                System.out.println("Created folder: " + dir.getAbsolutePath());
             }
 
             BufferedWriter writer = new BufferedWriter(new FileWriter("data/todos.txt"));
@@ -69,12 +66,11 @@ public class Main {
             }
 
             writer.close();
-            System.out.println("ToDos saved to data/todos.txt");
+            System.out.println("ToDos saved to: " + new File("data/todos.txt").getAbsolutePath());
         } catch (IOException e) {
             System.out.println("Error saving ToDos: " + e.getMessage());
         }
     }
-
 
     public void loadFromFile() {
         toDoList.clear();
@@ -83,14 +79,13 @@ public class Main {
             while ((line = reader.readLine()) != null) {
                 toDoList.add(ToDo.fromString(line));
             }
-            System.out.println("ToDos loaded from data/todos.txt");
+            System.out.println("ToDos loaded from file!");
         } catch (IOException e) {
             System.out.println("Error loading ToDos: " + e.getMessage());
         }
     }
 
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new Main().menu();
     }
 }
