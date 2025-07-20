@@ -3,7 +3,7 @@ package hu.bd;
 import java.util.Scanner;
 
 public class Main {
-    public void menu(){
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int option;
 
@@ -12,24 +12,22 @@ public class Main {
         System.out.println("2. ToDo list");
         System.out.println("0. Exit");
 
+        System.out.print("Option: ");
         option = scanner.nextInt();
 
-
         switch (option) {
+            case 0:
+                System.out.println("Goodbye.");
+                break;
             case 1:
                 System.out.println("Add a ToDo to your list. ");
                 break;
             case 2:
                 System.out.println("View ToDo list.");
                 break;
-            case 3:
-                System.out.println("Exit.");
-                break;
             default:
                 System.out.println("Invalid option!");
                 break;
         }
-    }
-    public static void main(String[] args) {
     }
 }
