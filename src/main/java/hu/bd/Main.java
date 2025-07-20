@@ -17,8 +17,7 @@ public class Main {
             System.out.println("\nChoose an option:");
             System.out.println("1. Add ToDo");
             System.out.println("2. ToDo list");
-            System.out.println("3. Save ToDos to file");
-            System.out.println("4. Load ToDos from file");
+            System.out.println("3. Delete ToDo");
             System.out.println("0. Exit");
             System.out.print("Option: ");
 
@@ -26,20 +25,31 @@ public class Main {
             scanner.nextLine(); // buffer törlés
 
             switch (option) {
-                case 0:
+                case 0: //Exit
                     System.out.println("Goodbye.");
                     break;
-                case 1:
+                case 1: //Add
                     AddToDo.addToDo(toDoList);
-                    break;
-                case 2:
-                    viewToDo.display(toDoList);
-                    break;
-                case 3:
                     saveToFile();
                     break;
-                case 4:
+                case 2: //Load
                     loadFromFile();
+                    viewToDo.display(toDoList);
+                    break;
+                case 3: //Delete
+                    loadFromFile();
+                    viewToDo.display(toDoList);
+                    System.out.println("Enter number of ToDo to delete: ");
+                    int number = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (number>=1 && number<= toDoList.size()){
+                        ToDo removed = toDoList.remove(number-1);
+                        System.out.println("Removed: "+removed.getTitle());
+                        saveToFile();
+                    }else {
+                        System.out.println("Invalid number!");
+                    }
                     break;
                 default:
                     System.out.println("Invalid option!");

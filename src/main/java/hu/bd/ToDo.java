@@ -22,6 +22,11 @@ public class ToDo {
         return title + ";" + description;
     }
 
+    public String userPrint(){
+        return "Title: "+title+"\n"+
+                "Description: "+description+".";
+    }
+
     public static ToDo fromString(String line) {
         String[] parts = line.split(";", 2);
         return new ToDo(parts[0], parts[1]);
